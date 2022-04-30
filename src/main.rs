@@ -32,7 +32,7 @@ async fn main() -> std::io::Result<()> {
 async fn receive_created_book_event() {
     let url = std::env::var("RABBIT_URL");
     let bus = Bus::new_rabbit_bus(url.unwrap());
-    let _ = bus.subscribe_event::<CreatedBookEvent>(String::from("save_database"),|event| {
+    let _ = bus.subscribe_event::<CreatedBookEvent>(String::from("send_email"),|event| {
         tracing::info!("Receive created book event, book_id: {}, title: {}", event.id, event.title);
         (false, Ok(()))
     });
